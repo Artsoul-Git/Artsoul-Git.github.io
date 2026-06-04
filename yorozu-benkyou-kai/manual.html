@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>よろず支援拠点LP 使用マニュアル ─ ミニセミナー＆勉強会の運用ガイド</title>
+<style>
+  :root {
+    --navy: #1A365D;
+    --navy-deep: #0F2340;
+    --gold: #B7791F;
+    --gold-soft: #FFF8E8;
+    --text: #2D3748;
+    --text-soft: #4A5568;
+    --text-mute: #8A8A95;
+    --bg: #FAFBFC;
+    --paper: #ffffff;
+    --line: #E2E8F0;
+    --green: #38A169;
+    --red: #E53E3E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Yu Gothic UI", "Hiragino Sans", sans-serif; line-height: 1.9; color: var(--text); background: var(--bg); font-size: 15px; }
+  .container { max-width: 920px; margin: 40px auto; background: var(--paper); padding: 56px 64px; box-shadow: 0 2px 30px rgba(0,0,0,0.08); border-radius: 12px; }
+
+  /* 表紙 */
+  .cover { text-align: center; padding: 40px 0 36px; border-bottom: 4px solid var(--navy); margin-bottom: 40px; }
+  .cover .eyebrow { font-size: 12px; letter-spacing: 0.4em; color: var(--gold); margin-bottom: 12px; font-weight: 700; }
+  .cover h1 { font-size: 28px; color: var(--navy); margin-bottom: 14px; line-height: 1.5; }
+  .cover .sub { font-size: 16px; color: var(--text-soft); margin-bottom: 20px; }
+  .cover .meta { font-size: 12px; color: var(--text-soft); letter-spacing: 0.15em; }
+
+  /* サマリー */
+  .summary { background: linear-gradient(135deg, var(--navy) 0%, #2c5282 100%); color: #fff; padding: 28px 32px; border-radius: 12px; margin-bottom: 32px; }
+  .summary .label { font-size: 11px; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 12px; }
+  .summary h2 { font-size: 19px; margin-bottom: 12px; color: #fff; border: none; padding: 0; }
+  .summary ul { padding-left: 24px; }
+  .summary li { font-size: 14.5px; line-height: 2; }
+  .summary strong { color: var(--gold); }
+
+  /* 全体像 */
+  .overview { background: var(--gold-soft); border-radius: 12px; padding: 32px 28px; margin-bottom: 40px; }
+  .overview .label { text-align: center; font-size: 11px; letter-spacing: 0.4em; color: var(--gold); margin-bottom: 18px; font-weight: 700; }
+  .overview h2 { text-align: center; font-size: 21px; color: var(--navy); margin-bottom: 24px; border: none; padding: 0; }
+  .flow-diagram { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; gap: 10px; align-items: stretch; }
+  .flow-box { background: #fff; border: 2px solid var(--navy); border-radius: 6px; padding: 18px 12px; text-align: center; }
+  .flow-box .num { display: inline-block; width: 26px; height: 26px; border-radius: 50%; background: var(--gold); color: #fff; font-size: 12px; font-weight: 700; line-height: 26px; margin-bottom: 6px; }
+  .flow-box .name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .flow-box .desc { font-size: 11px; color: var(--text-soft); line-height: 1.5; }
+  .flow-arrow { font-size: 22px; color: var(--gold); font-weight: 700; align-self: center; }
+  .overview .caption { text-align: center; font-size: 13px; color: var(--text-soft); margin-top: 16px; line-height: 1.8; }
+
+  /* 2 LPセレクター */
+  .lp-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+  .lp-card { background: #fff; border: 2px solid var(--line); border-top: 5px solid var(--navy); border-radius: 6px; padding: 24px 26px; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+  .lp-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(26, 54, 93, 0.10); }
+  .lp-card .lp-label { font-size: 10px; letter-spacing: 0.3em; color: var(--gold); font-weight: 700; margin-bottom: 8px; }
+  .lp-card h3 { font-size: 18px; color: var(--navy); margin-bottom: 10px; padding: 0; border: none; }
+  .lp-card .lp-time { font-size: 13px; color: var(--text-soft); margin-bottom: 12px; font-weight: 600; }
+  .lp-card .lp-desc { font-size: 13px; color: var(--text-soft); line-height: 1.8; }
+
+  /* セクション */
+  h2 { font-size: 22px; color: var(--navy); padding: 36px 0 12px; margin-top: 32px; border-bottom: 2px solid var(--gold); }
+  h2:first-of-type { margin-top: 0; }
+  h3 { font-size: 17px; color: var(--navy); margin: 24px 0 10px; padding-left: 14px; border-left: 5px solid var(--gold); }
+  p { margin: 10px 0; font-size: 14.5px; }
+
+  /* 比喩 */
+  .metaphor { background: var(--gold-soft); border-left: 5px solid var(--gold); padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 14px; }
+  .metaphor .icon { font-size: 22px; margin-right: 8px; vertical-align: middle; }
+  .metaphor strong { color: var(--navy); }
+
+  /* 結論カード */
+  .conclusion-card { background: #F0FFF4; border-left: 5px solid var(--green); padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 18px 0; }
+  .conclusion-card .badge { display: inline-block; background: var(--green); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.1em; }
+
+  /* ステップ */
+  .step-card { background: #F7FAFC; border-radius: 12px; padding: 26px 30px; margin: 22px 0; border-top: 5px solid var(--navy); }
+  .step-card .step-label { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .step-card .step-num-big { background: var(--gold); color: #fff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+  .step-card .step-title { font-size: 17px; font-weight: 700; color: var(--navy); }
+  .step-card .step-subtitle { font-size: 11px; color: var(--gold); letter-spacing: 0.2em; font-weight: 700; }
+
+  /* アコーディオン */
+  details { background: #fff; border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; overflow: hidden; }
+  details summary { padding: 14px 20px; cursor: pointer; font-size: 14.5px; font-weight: 600; color: var(--navy); list-style: none; display: flex; align-items: center; gap: 12px; user-select: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▶"; font-size: 10px; color: var(--gold); transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary:hover { background: var(--gold-soft); }
+  details .body { padding: 4px 22px 22px; font-size: 13.5px; line-height: 1.95; color: var(--text-soft); }
+
+  /* コード */
+  code { background: #2D3748; color: #F6AD55; padding: 2px 8px; border-radius: 4px; font-family: Consolas, monospace; font-size: 12.5px; }
+  pre { background: #1A202C; color: #E2E8F0; padding: 16px 20px; border-radius: 8px; overflow-x: auto; margin: 14px 0; font-family: Consolas, monospace; font-size: 12.5px; line-height: 1.7; white-space: pre-wrap; }
+  pre code { background: none; color: inherit; padding: 0; }
+
+  /* テーブル */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  th { background: var(--navy); color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:nth-child(even) { background: #F7FAFC; }
+
+  /* Tip / Warn */
+  .tip { background: var(--gold-soft); border-left: 5px solid var(--gold); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13.5px; }
+  .tip .label { font-weight: 700; color: var(--navy); font-size: 12px; margin-bottom: 6px; display: block; }
+  .warn { background: #FFF5F5; border-left: 5px solid var(--red); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13.5px; }
+  .warn .label { font-weight: 700; color: #C53030; font-size: 12px; margin-bottom: 6px; display: block; }
+
+  /* タブ */
+  .tab-container { margin: 24px 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
+  .tab-buttons { display: flex; gap: 4px; padding: 6px; background: #F7FAFC; border-radius: 8px; }
+  .tab-btn { flex: 1; background: transparent; border: none; cursor: pointer; padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--text-soft); font-family: inherit; border-radius: 6px; transition: background 0.2s, color 0.2s; }
+  .tab-btn.active { background: var(--navy); color: #fff; }
+  .tab-btn:hover:not(.active) { background: var(--gold-soft); color: var(--navy); }
+  .tab-panel { display: none; padding: 22px 14px 14px; }
+  .tab-panel.active { display: block; }
+
+  /* 用語集 */
+  .glossary { display: grid; grid-template-columns: 200px 1fr; gap: 12px 24px; margin: 16px 0; }
+  .glossary dt { font-weight: 700; color: var(--navy); font-size: 13px; }
+  .glossary dd { font-size: 13px; color: var(--text-soft); }
+
+  /* トラブル */
+  details.troubleshoot summary { background: #FFF5F5; color: #C53030; }
+  details.troubleshoot summary:hover { background: #FFE5E5; }
+
+  /* 差し替え可否マップ */
+  .diff-map { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 24px 28px; margin: 20px 0; }
+  .diff-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+  .diff-row:last-child { border-bottom: none; }
+  .diff-row .mark { width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .diff-row .mark.yes { background: #C6F6D5; color: #2F855A; }
+  .diff-row .mark.no { background: #FED7D7; color: #C53030; }
+  .diff-row .mark.opt { background: #FEEBC8; color: var(--gold); }
+  .diff-row .label { font-weight: 700; min-width: 130px; }
+
+  /* フッタ */
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line); text-align: center; font-size: 11px; color: var(--text-soft); letter-spacing: 0.15em; }
+
+  @media (max-width: 720px) {
+    .container { padding: 32px 24px; margin: 16px; }
+    .flow-diagram { grid-template-columns: 1fr; gap: 8px; }
+    .flow-arrow { transform: rotate(90deg); }
+    .glossary { grid-template-columns: 1fr; }
+    .tab-buttons { flex-direction: column; }
+    .lp-selector { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 表紙 -->
+  <header class="cover">
+    <div class="eyebrow">USAGE MANUAL</div>
+    <h1>よろず支援拠点LP 使用マニュアル<br>ミニセミナー＆勉強会の運用ガイド</h1>
+    <p class="sub">岡山県よろず支援拠点 ／ コーディネイター 上村 担当</p>
+    <p class="meta">v1.0 ／ 2026-06-04 ／ 制作：Kai for Kei</p>
+  </header>
+
+  <!-- サマリー -->
+  <div class="summary">
+    <div class="label">30秒で分かること</div>
+    <h2>このマニュアルで分かること</h2>
+    <ul>
+      <li><strong>2つのLP</strong> ─ ミニセミナー（135分）＋ 勉強会（60分）の両方を1つのマニュアルで運用</li>
+      <li><strong>差し替えの4要素</strong> ─ 開催日／タイトル／サブ／紹介文を毎回更新するだけ</li>
+      <li><strong>運用フロー</strong> ─ テンプレ.mdに記入 → Claude に依頼 → 5分で完了</li>
+    </ul>
+  </div>
+
+  <!-- 2つのLP -->
+  <h2>0. 運用対象の2つのLP</h2>
+  <div class="lp-selector">
+    <a href="yorozu-mini-seminar.html" target="_blank" class="lp-card" style="text-decoration:none; color:inherit;">
+      <div class="lp-label">SEMINAR</div>
+      <h3>ミニセミナー</h3>
+      <div class="lp-time">⏱ 135分（セミナー60＋休憩15＋ハンズオン75）</div>
+      <p class="lp-desc">手順書配布あり、ハンズオン作業会つき、深く実装する回。</p>
+    </a>
+    <a href="yorozu-benkyou-kai.html" target="_blank" class="lp-card" style="text-decoration:none; color:inherit;">
+      <div class="lp-label">BENKYO-KAI</div>
+      <h3>勉強会</h3>
+      <div class="lp-time">⏱ 60分（雑談10＋学習30〜40＋まとめ10）</div>
+      <p class="lp-desc">シリーズ展開、コンパクトに学んで宿題で実践、水曜相談で詰まり解消。</p>
+    </a>
+  </div>
+
+  <!-- 全体像フロー図 -->
+  <div class="overview">
+    <div class="label">OVERVIEW</div>
+    <h2>運用フロー全体像</h2>
+    <div class="flow-diagram">
+      <div class="flow-box">
+        <div class="num">1</div>
+        <div class="name">テーマ決定</div>
+        <div class="desc">次回開催のテーマを決める</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="num">2</div>
+        <div class="name">テンプレ記入</div>
+        <div class="desc">.md ファイルに4要素を書く</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="num">3</div>
+        <div class="name">Claudeに依頼</div>
+        <div class="desc">該当LPの指示プロンプトを実行</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="num">4</div>
+        <div class="name">告知開始</div>
+        <div class="desc">URLを参加者へ案内</div>
+      </div>
+    </div>
+    <p class="caption">
+      毎回 <strong>5分以内</strong> で、新しい開催回のLPが完成します。<br>
+      ヒーロー以下のセクション（WHY/タイムテーブル/参加条件/FAQ）は共通設計のため、変えなくてOK。
+    </p>
+  </div>
+
+  <!-- LP の位置付け -->
+  <h2>1. このLP群は何のためのもの？</h2>
+
+  <div class="conclusion-card">
+    <span class="badge">ざっくり結論</span>
+    <p>岡山県よろず支援拠点が主催する <strong>「Claude Code ミニセミナー」</strong> と <strong>「Claude Code 勉強会」</strong> の<strong>毎回開催の告知用LP</strong>。テーマは毎回変わるが、企画の構造は共通なので「テーマ部分」だけ差し替えて使い回します。</p>
+  </div>
+
+  <div class="metaphor">
+    <span class="icon">📋</span>
+    <strong>たとえると：</strong>
+    定型の通知文書テンプレートと同じ発想です。骨格（条件・流れ）は共通、当日のテーマ・日付だけ差し替えて使う。LPもタイトル・紹介文だけ毎回書き換えれば、すぐ次回告知に使えます。
+  </div>
+
+  <!-- ミニセミナーと勉強会の違い -->
+  <h2>2. ミニセミナーと勉強会の違い</h2>
+
+  <table>
+    <thead>
+      <tr><th>観点</th><th>ミニセミナー</th><th>勉強会</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>所要時間</td><td>135分（休憩込み2時間15分）</td><td>60分</td></tr>
+      <tr><td>構成</td><td>セミナー60→休憩15→ハンズオン75</td><td>雑談10→学習30〜40→まとめ10</td></tr>
+      <tr><td>テーマの深さ</td><td>1テーマを完成まで実装</td><td>1テーマを概論＋一部実演</td></tr>
+      <tr><td>手順書</td><td>完成まで導く詳細版</td><td>試行スタートの簡易版</td></tr>
+      <tr><td>持ち帰り</td><td>完成成果物＋手順書＋次の道筋</td><td>学習成果＋宿題＋簡易手順書</td></tr>
+      <tr><td>頻度</td><td>不定期（テーマ毎）</td><td>定期開催（シリーズ）</td></tr>
+      <tr><td>適したテーマ例</td><td>WEB名刺作成／LP作成／業務スキル化</td><td>Claude Code入門／プロンプト基礎／議事録整形</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 差し替え可否マップ -->
+  <h2>3. 差し替える／変えない箇所マップ（両LP共通）</h2>
+
+  <div class="conclusion-card">
+    <span class="badge">ざっくり結論</span>
+    <p>差し替えるのは <strong>「今回のテーマ」セクション</strong> の中だけ。それ以外は共通設計として固定です。</p>
+  </div>
+
+  <div class="diff-map">
+    <div class="diff-row">
+      <div class="mark yes">✓</div>
+      <div class="label">テーマセクション</div>
+      <div>開催日・タイトル・サブ・紹介文の4要素</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark yes">✓</div>
+      <div class="label">meta description</div>
+      <div>SNSシェア時の説明文（紹介文と連動）</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">ヒーロー</div>
+      <div>バッジ・サブ・リード・ボタンは固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">WHY 3つの理由／特徴</div>
+      <div>各LPごとに固有だが、テーマ問わず固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">持ち帰り 6つ</div>
+      <div>テーマ問わず共通の持ち帰り物</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">タイムテーブル</div>
+      <div>セミナーは135分構成、勉強会は60分構成で固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">SPECIAL（手順書＆水曜相談）</div>
+      <div>共通設計のフォローアップ導線</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">講師＆サポート</div>
+      <div>コーディネイター 上村＋サポート体制は固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">参加条件</div>
+      <div>中小企業の経営者・個人事業主＋Claude等の条件は固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">FAQ</div>
+      <div>共通6項目は固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark opt">△</div>
+      <div class="label">シリーズイメージ</div>
+      <div>勉強会のみ・EPISODE構成は適宜更新可</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark opt">△</div>
+      <div class="label">カラー</div>
+      <div>navy×gold（公的事業の信頼感）を維持推奨</div>
+    </div>
+  </div>
+
+  <!-- 運用4ステップ -->
+  <h2>4. 毎回の運用4ステップ</h2>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">1</div>
+      <div>
+        <div class="step-subtitle">ABOUT 1 MIN</div>
+        <div class="step-title">次回のテーマと対象LPを決める</div>
+      </div>
+    </div>
+    <p>「ミニセミナー」と「勉強会」のどちらに合わせたテーマか決めます。完成まで導きたい大きめのテーマ → ミニセミナー、コンパクトに1点突破 → 勉強会、を目安に。</p>
+    <div class="tip">
+      <span class="label">💡 テーマ選定のコツ</span>
+      ・中小企業の業務に直結するテーマを優先<br>
+      ・「今日からできる」が訴求できる難易度に<br>
+      ・「自分の業務にも応用できる」要素を含める
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">2</div>
+      <div>
+        <div class="step-subtitle">ABOUT 3 MIN</div>
+        <div class="step-title">テンプレ.mdに4要素を記入</div>
+      </div>
+    </div>
+    <p>同じフォルダにある <code>yorozu-theme-template.md</code> を開いて、該当LPの記入欄に4要素を書きます：</p>
+    <pre><code>【対象LP】：yorozu-mini-seminar.html  または  yorozu-benkyou-kai.html
+【開催日】：2026.8.30（土）
+【タイトル】：（テーマの正式名）
+【サブ】：（テーマの位置付け1行）
+【紹介文】：（100〜200文字、何にチャレンジ／持ち帰り物）</code></pre>
+    <div class="tip">
+      <span class="label">💡 書き方のコツ</span>
+      テンプレ.md内に「書くときのコツ」セクションがあるので、迷ったらそこを参照してください。<br>
+      ミニセミナーと勉強会で適したテーマの違いも記載してあります。
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">3</div>
+      <div>
+        <div class="step-subtitle">ABOUT 1 MIN</div>
+        <div class="step-title">Claudeに差し替えを依頼</div>
+      </div>
+    </div>
+    <p>テンプレ.mdの「Claudeへの差し替え指示プロンプト」をコピーして、Claude Code に貼り付け。Enter で実行。</p>
+    <p>Claudeが自動で：</p>
+    <ul style="padding-left: 32px; margin: 12px 0;">
+      <li>テーマセクションの4要素を新しいものに置き換え</li>
+      <li>meta description / og:description を更新</li>
+      <li>差し替え完了報告</li>
+    </ul>
+    <div class="tip">
+      <span class="label">💡 確認方法</span>
+      ブラウザで該当LPを開いて、テーマセクションが新しい内容になっているか確認。
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">4</div>
+      <div>
+        <div class="step-subtitle">ABOUT 1 MIN</div>
+        <div class="step-title">告知開始</div>
+      </div>
+    </div>
+    <p>LPのURLをよろず支援拠点の予約フォーム・メール案内・各種媒体で告知。OGP（SNSシェア時のサムネ）も新テーマの紹介文に切り替わっています。</p>
+    <div class="warn">
+      <span class="label">⚠️ 注意</span>
+      公開URLを変える場合は別途 git push が必要です。<strong>公開系操作は明示承認後に実行</strong>のルール。
+    </div>
+  </div>
+
+  <!-- 差し替えるパーツの場所 -->
+  <h2>5. 差し替えるパーツの場所</h2>
+
+  <details>
+    <summary>HTMLでの差し替え位置を見る ▾</summary>
+    <div class="body">
+      <p>テーマセクションは <code>id="theme"</code> で識別。差し替え対象はコメントで明示しています（両LP共通構造）：</p>
+      <pre><code>&lt;section class="today-theme" id="theme"&gt;
+  ...
+  &lt;div class="theme-card fade-up"&gt;
+    &lt;!-- ▼▼▼ 差し替え区間 START（テーマ変更時はここから） ▼▼▼ --&gt;
+    &lt;div class="theme-vol"&gt;開催日：2026.6.27（土）&lt;/div&gt;
+    &lt;h2 class="theme-title"&gt;実践Claude Code！...&lt;/h2&gt;
+    &lt;p class="theme-sub"&gt;AIと一緒に育てる、あなたの看板の作り方&lt;/p&gt;
+    &lt;div class="theme-desc-box"&gt;
+      &lt;p&gt;Claudeデスクトップアプリで気楽に...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;!-- ▲▲▲ 差し替え区間 END（テーマ変更時はここまで） ▲▲▲ --&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+      <p>この「▼▼▼ START」から「▲▲▲ END」の間だけが差し替え対象です。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>meta タグの差し替え位置を見る ▾</summary>
+    <div class="body">
+      <p>HTML冒頭の <code>&lt;head&gt;</code> 内：</p>
+      <pre><code>&lt;meta name="description" content="（紹介文がここに入る）"&gt;
+&lt;meta property="og:description" content="（同じ内容）"&gt;</code></pre>
+      <p>テーマ差し替え時、Claudeがこれも一緒に更新してくれます。</p>
+    </div>
+  </details>
+
+  <!-- カスタマイズ -->
+  <h2>6. その他のカスタマイズ（オプション）</h2>
+
+  <details>
+    <summary>会場情報・予約フォームURLを入れたい時 ▾</summary>
+    <div class="body">
+      <p>ヒーローの <code>.hero-meta</code> 内、または「今回のテーマ」カード下に新しいセクションを追加することで対応可能。Claudeに「会場情報セクションを追加して」と依頼してください。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>勉強会のシリーズイメージ（EPISODE）を更新したい時 ▾</summary>
+    <div class="body">
+      <p>勉強会LPの <code>.series-grid</code> 内、4つの <code>.series-box</code> の中身を書き換え。Claudeに「シリーズイメージのEPISODE 01〜04を以下に変更して：…」と依頼。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>個別相談の曜日・URLを変えたい時 ▾</summary>
+    <div class="body">
+      <p>本文中「毎週水曜」記載と、FAQ「個別相談はどう申し込む？」の回答内のURL／予約方法を一括書き換え。Claudeに「個別相談の曜日を◯曜に変更し、関連箇所をすべて更新して」と依頼。</p>
+    </div>
+  </details>
+
+  <!-- トラブル -->
+  <details class="troubleshoot">
+    <summary>⚠️ うまく動かない時はここを開く ▾</summary>
+    <div class="body">
+      <table>
+        <tr><th>症状</th><th>対処</th></tr>
+        <tr><td>差し替え後にデザインが崩れた</td><td>HTML タグ（&lt;h2&gt;等）を消してしまった可能性。git で1つ前に戻して再実行。</td></tr>
+        <tr><td>「開催日」だけ反映されない</td><td>テンプレ.mdの【開催日】欄に書いていない可能性。記入してから再実行。</td></tr>
+        <tr><td>meta description が更新されていない</td><td>Claudeへの指示プロンプトに「meta description も更新して」が含まれているか確認。</td></tr>
+        <tr><td>ブラウザで古い内容が表示される</td><td>ブラウザのスーパーリロード（Ctrl+Shift+R）。</td></tr>
+        <tr><td>違うLPに反映されてしまった</td><td>指示プロンプトの【対象LP】を確認。yorozu-mini-seminar.html と yorozu-benkyou-kai.html は別物。</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <!-- 用語集 -->
+  <h2>7. 用語集（気になる人だけ）</h2>
+
+  <div class="tab-container">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showTab(event, 'basic')">基本用語</button>
+      <button class="tab-btn" onclick="showTab(event, 'meta')">meta関連</button>
+    </div>
+
+    <div class="tab-panel active" id="basic">
+      <dl class="glossary">
+        <dt>LP（ランディングページ）</dt>
+        <dd>告知や申込誘導のための1ページ完結型ウェブページ。</dd>
+        <dt>テーマセクション</dt>
+        <dd>このLP内で毎回差し替える「今回のテーマ」部分。<code>id="theme"</code> で識別。</dd>
+        <dt>差し替え区間</dt>
+        <dd>HTMLコメント「▼▼▼ START」と「▲▲▲ END」で囲まれた、テーマ差し替え対象範囲。</dd>
+        <dt>SPECIAL／フォローアップ</dt>
+        <dd>「手順書配布 → 持ち帰り実践 → 水曜個別相談」のフォロー導線セクション。両LPで共通の核要素。</dd>
+        <dt>開催日表記</dt>
+        <dd>「開催日：YYYY.M.D（曜日）」形式で記載。例：「開催日：2026.6.27（土）」。</dd>
+      </dl>
+    </div>
+
+    <div class="tab-panel" id="meta">
+      <dl class="glossary">
+        <dt>meta description</dt>
+        <dd>検索エンジンや SNS でURLを共有した時に表示される説明文。SEO的にも重要。</dd>
+        <dt>OGP</dt>
+        <dd>「Open Graph Protocol」。SNS シェア時のサムネとタイトルを設定する仕組み。<code>og:title</code> や <code>og:description</code> で指定。</dd>
+        <dt>OGP デバッガー</dt>
+        <dd>Facebook や X が提供する、OGP キャッシュの確認・更新用ツール。シェア時に古い情報が出る時に使う。</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- 関連 -->
+  <h2>関連ファイル</h2>
+  <ul style="padding-left: 32px; margin: 12px 0;">
+    <li><code>yorozu-mini-seminar.html</code> ─ ミニセミナーLP本体</li>
+    <li><code>yorozu-benkyou-kai.html</code> ─ 勉強会LP本体</li>
+    <li><code>yorozu-theme-template.md</code> ─ テーマ差し替え用テンプレ＋Claude指示プロンプト（両LP共通）</li>
+    <li><code>yorozu-LP-manual.html</code> ─ 本マニュアル</li>
+  </ul>
+
+  <!-- フッタ -->
+  <footer>
+    © 2026 Kai for Kei ／ Kei.U（上村けいすけ） ／ v1.0
+  </footer>
+
+</div>
+
+<script>
+  function showTab(event, id) {
+    const container = event.target.closest('.tab-container');
+    container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
