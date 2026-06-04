@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゆるっと作業会LP 使用マニュアル ─ テーマを毎回差し替えて使い回す</title>
+<style>
+  :root {
+    --navy: #1A365D;
+    --orange: #ED8936;
+    --orange-soft: #FFFAF0;
+    --magenta: #a51e6d;
+    --magenta-soft: #FFF5FB;
+    --text: #2D3748;
+    --text-soft: #4A5568;
+    --text-mute: #8A8A95;
+    --bg: #FAFBFC;
+    --paper: #ffffff;
+    --line: #E2E8F0;
+    --green: #38A169;
+    --red: #E53E3E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Yu Gothic UI", "Hiragino Sans", sans-serif; line-height: 1.9; color: var(--text); background: var(--bg); font-size: 15px; }
+  .container { max-width: 920px; margin: 40px auto; background: var(--paper); padding: 56px 64px; box-shadow: 0 2px 30px rgba(0,0,0,0.08); border-radius: 12px; }
+
+  /* 表紙 */
+  .cover { text-align: center; padding: 40px 0 36px; border-bottom: 4px solid var(--navy); margin-bottom: 40px; }
+  .cover .eyebrow { font-size: 12px; letter-spacing: 0.4em; color: var(--orange); margin-bottom: 12px; font-weight: 700; }
+  .cover h1 { font-size: 28px; color: var(--navy); margin-bottom: 14px; line-height: 1.5; }
+  .cover .sub { font-size: 16px; color: var(--text-soft); margin-bottom: 20px; }
+  .cover .meta { font-size: 12px; color: var(--text-soft); letter-spacing: 0.15em; }
+
+  /* 30秒サマリー */
+  .summary { background: linear-gradient(135deg, var(--navy) 0%, #2c5282 100%); color: #fff; padding: 28px 32px; border-radius: 12px; margin-bottom: 32px; }
+  .summary .label { font-size: 11px; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 12px; }
+  .summary h2 { font-size: 19px; margin-bottom: 12px; color: #fff; border: none; padding: 0; }
+  .summary ul { padding-left: 24px; }
+  .summary li { font-size: 14.5px; line-height: 2; }
+  .summary strong { color: var(--orange); }
+
+  /* 全体像フロー図 */
+  .overview { background: var(--orange-soft); border-radius: 12px; padding: 32px 28px; margin-bottom: 40px; }
+  .overview .label { text-align: center; font-size: 11px; letter-spacing: 0.4em; color: var(--orange); margin-bottom: 18px; font-weight: 700; }
+  .overview h2 { text-align: center; font-size: 21px; color: var(--navy); margin-bottom: 24px; border: none; padding: 0; }
+  .flow-diagram { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; gap: 10px; align-items: stretch; }
+  .flow-box { background: #fff; border: 2px solid var(--navy); border-radius: 10px; padding: 18px 12px; text-align: center; }
+  .flow-box .num { display: inline-block; width: 26px; height: 26px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 12px; font-weight: 700; line-height: 26px; margin-bottom: 6px; }
+  .flow-box .name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .flow-box .desc { font-size: 11px; color: var(--text-soft); line-height: 1.5; }
+  .flow-arrow { font-size: 22px; color: var(--orange); font-weight: 700; align-self: center; }
+  .overview .caption { text-align: center; font-size: 13px; color: var(--text-soft); margin-top: 16px; line-height: 1.8; }
+
+  /* セクション */
+  h2 { font-size: 22px; color: var(--navy); padding: 36px 0 12px; margin-top: 32px; border-bottom: 2px solid var(--orange); }
+  h2:first-of-type { margin-top: 0; }
+  h3 { font-size: 17px; color: var(--navy); margin: 24px 0 10px; padding-left: 14px; border-left: 5px solid var(--orange); }
+  p { margin: 10px 0; font-size: 14.5px; }
+
+  /* 比喩 */
+  .metaphor { background: var(--orange-soft); border-left: 5px solid var(--orange); padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 14px; }
+  .metaphor .icon { font-size: 22px; margin-right: 8px; vertical-align: middle; }
+  .metaphor strong { color: #C05621; }
+
+  /* 結論カード */
+  .conclusion-card { background: #F0FFF4; border-left: 5px solid var(--green); padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 18px 0; }
+  .conclusion-card .badge { display: inline-block; background: var(--green); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.1em; }
+
+  /* ステップカード */
+  .step-card { background: #F7FAFC; border-radius: 12px; padding: 26px 30px; margin: 22px 0; border-top: 5px solid var(--navy); }
+  .step-card .step-label { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .step-card .step-num-big { background: var(--orange); color: #fff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+  .step-card .step-title { font-size: 17px; font-weight: 700; color: var(--navy); }
+  .step-card .step-subtitle { font-size: 11px; color: var(--orange); letter-spacing: 0.2em; font-weight: 700; }
+
+  /* アコーディオン */
+  details { background: #fff; border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; overflow: hidden; }
+  details summary { padding: 14px 20px; cursor: pointer; font-size: 14.5px; font-weight: 600; color: var(--navy); list-style: none; display: flex; align-items: center; gap: 12px; user-select: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▶"; font-size: 10px; color: var(--orange); transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary:hover { background: var(--orange-soft); }
+  details .body { padding: 4px 22px 22px; font-size: 13.5px; line-height: 1.95; color: var(--text-soft); }
+
+  /* コード */
+  code { background: #2D3748; color: #F6AD55; padding: 2px 8px; border-radius: 4px; font-family: Consolas, monospace; font-size: 12.5px; }
+  pre { background: #1A202C; color: #E2E8F0; padding: 16px 20px; border-radius: 8px; overflow-x: auto; margin: 14px 0; font-family: Consolas, monospace; font-size: 12.5px; line-height: 1.7; white-space: pre-wrap; }
+  pre code { background: none; color: inherit; padding: 0; }
+
+  /* テーブル */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  th { background: var(--navy); color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:nth-child(even) { background: #F7FAFC; }
+
+  /* Tip / Warn */
+  .tip { background: var(--orange-soft); border-left: 5px solid var(--orange); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13.5px; }
+  .tip .label { font-weight: 700; color: #C05621; font-size: 12px; margin-bottom: 6px; display: block; }
+  .warn { background: #FFF5F5; border-left: 5px solid var(--red); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13.5px; }
+  .warn .label { font-weight: 700; color: #C53030; font-size: 12px; margin-bottom: 6px; display: block; }
+
+  /* タブ */
+  .tab-container { margin: 24px 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
+  .tab-buttons { display: flex; gap: 4px; padding: 6px; background: #F7FAFC; border-radius: 8px; }
+  .tab-btn { flex: 1; background: transparent; border: none; cursor: pointer; padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--text-soft); font-family: inherit; border-radius: 6px; transition: background 0.2s, color 0.2s; }
+  .tab-btn.active { background: var(--navy); color: #fff; }
+  .tab-btn:hover:not(.active) { background: var(--orange-soft); color: var(--navy); }
+  .tab-panel { display: none; padding: 22px 14px 14px; }
+  .tab-panel.active { display: block; }
+
+  /* 用語集 */
+  .glossary { display: grid; grid-template-columns: 200px 1fr; gap: 12px 24px; margin: 16px 0; }
+  .glossary dt { font-weight: 700; color: var(--navy); font-size: 13px; }
+  .glossary dd { font-size: 13px; color: var(--text-soft); }
+
+  /* トラブル別ブロック */
+  details.troubleshoot summary { background: #FFF5F5; color: #C53030; }
+  details.troubleshoot summary:hover { background: #FFE5E5; }
+
+  /* 差し替え可否マップ */
+  .diff-map { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 24px 28px; margin: 20px 0; }
+  .diff-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+  .diff-row:last-child { border-bottom: none; }
+  .diff-row .mark { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .diff-row .mark.yes { background: #C6F6D5; color: #2F855A; }
+  .diff-row .mark.no { background: #FED7D7; color: #C53030; }
+  .diff-row .mark.opt { background: #FEEBC8; color: #C05621; }
+  .diff-row .label { font-weight: 700; min-width: 130px; }
+
+  /* フッタ */
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line); text-align: center; font-size: 11px; color: var(--text-soft); letter-spacing: 0.15em; }
+
+  @media (max-width: 720px) {
+    .container { padding: 32px 24px; margin: 16px; }
+    .flow-diagram { grid-template-columns: 1fr; gap: 8px; }
+    .flow-arrow { transform: rotate(90deg); }
+    .glossary { grid-template-columns: 1fr; }
+    .tab-buttons { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 表紙 -->
+  <header class="cover">
+    <div class="eyebrow">USAGE MANUAL</div>
+    <h1>ゆるっと作業会LP 使用マニュアル<br>テーマを毎回差し替えて使い回す</h1>
+    <p class="sub">SHIFT AI ゆるっと作業会 in 岡山 ／ LP運用ガイド</p>
+    <p class="meta">v1.0 ／ 2026-06-04 ／ 制作：Kai for Kei</p>
+  </header>
+
+  <!-- 30秒サマリー -->
+  <div class="summary">
+    <div class="label">30秒で分かること</div>
+    <h2>このマニュアルで分かること</h2>
+    <ul>
+      <li><strong>このLPの位置付け</strong> ─ 毎回のテーマだけ差し替えて、共通設計部分は使い回す前提のLP</li>
+      <li><strong>差し替えの4要素</strong> ─ 開催日／タイトル／サブ／紹介文の4つだけ毎回更新</li>
+      <li><strong>運用フロー</strong> ─ テンプレ.mdに記入 → Claude に依頼 → 5分で更新完了</li>
+    </ul>
+  </div>
+
+  <!-- 全体像フロー図 -->
+  <div class="overview">
+    <div class="label">OVERVIEW</div>
+    <h2>運用フロー全体像</h2>
+    <div class="flow-diagram">
+      <div class="flow-box">
+        <div class="num">1</div>
+        <div class="name">テーマ決定</div>
+        <div class="desc">次回開催のテーマを決める</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="num">2</div>
+        <div class="name">テンプレ記入</div>
+        <div class="desc">.md ファイルに4要素を書く</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="num">3</div>
+        <div class="name">Claudeに依頼</div>
+        <div class="desc">指示プロンプトをコピペ</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="num">4</div>
+        <div class="name">告知開始</div>
+        <div class="desc">URLをDiscordで共有</div>
+      </div>
+    </div>
+    <p class="caption">
+      毎回 <strong>5分以内</strong> で、新しい開催回のLPが完成します。<br>
+      ヒーロー以下のセクション（WHY/タイムテーブル/参加条件/FAQ）は共通設計のため、変えなくてOK。
+    </p>
+  </div>
+
+  <!-- LP の位置付け -->
+  <h2>0. このLPは何のためのもの？</h2>
+
+  <div class="conclusion-card">
+    <span class="badge">ざっくり結論</span>
+    <p>「ゆるっと作業会」の <strong>毎回開催の告知用LP</strong>。テーマは毎回変わるが、企画の構造は共通。<br>
+       → 「テーマ部分」だけ差し替えて使い回す設計です。</p>
+  </div>
+
+  <div class="metaphor">
+    <span class="icon">📋</span>
+    <strong>たとえると：</strong>
+    定型契約書のテンプレートと同じ発想です。骨格（条文・条件）は共通、当事者名・金額だけ差し替えて使う。LPもタイトル・紹介文だけ毎回書き換えれば、すぐ次回告知に使えます。
+  </div>
+
+  <!-- 差し替え可否マップ -->
+  <h2>1. 差し替える／変えない箇所マップ</h2>
+
+  <div class="conclusion-card">
+    <span class="badge">ざっくり結論</span>
+    <p>差し替えるのは <strong>「今回のテーマ」セクション</strong> の中だけ。それ以外は共通設計として固定です。</p>
+  </div>
+
+  <div class="diff-map">
+    <div class="diff-row">
+      <div class="mark yes">✓</div>
+      <div class="label">テーマセクション</div>
+      <div>開催日・タイトル・サブ・紹介文の4要素</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark yes">✓</div>
+      <div class="label">meta description</div>
+      <div>SNSシェア時の説明文（紹介文と連動）</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">ヒーロー</div>
+      <div>バッジ・サブ・リード・ボタンは固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">WHY 3つの特徴</div>
+      <div>主催テーマ／自分のアレンジ／リピートで実力アップ</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">持ち帰り 6つ</div>
+      <div>テーマ問わず共通の持ち帰り物</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">タイムテーブル</div>
+      <div>3時間構成は固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">アウトプットタイム解説</div>
+      <div>共通設計</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">主催者紹介</div>
+      <div>2人体制の説明は固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">参加条件</div>
+      <div>SHIFT AI 会員＋Claude Pro 等の条件は固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark no">✕</div>
+      <div class="label">FAQ</div>
+      <div>6項目は固定</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark opt">△</div>
+      <div class="label">バッジテキスト</div>
+      <div>「会員限定／岡山開催／FREE」等は必要に応じて</div>
+    </div>
+    <div class="diff-row">
+      <div class="mark opt">△</div>
+      <div class="label">カラー</div>
+      <div>マゼンタ系（SHIFT AIブランド）を維持推奨</div>
+    </div>
+  </div>
+
+  <!-- 運用4ステップ -->
+  <h2>2. 毎回の運用4ステップ</h2>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">1</div>
+      <div>
+        <div class="step-subtitle">ABOUT 1 MIN</div>
+        <div class="step-title">次回のテーマを決める</div>
+      </div>
+    </div>
+    <p>主催者2人で、次回のテーマを決めます。「Claude Code 入門」「LP作成」「議事録整形スキル」など、3時間で完結できる規模で。</p>
+    <div class="tip">
+      <span class="label">💡 テーマ選定のコツ</span>
+      ・ビジュアル系（LP・名刺・スライド）とビジネス系（議事録・メール返信・スキル作成）を交互に<br>
+      ・初心者でも完成体験が得られる難易度に<br>
+      ・「自分の業務にも応用できる」要素を含める
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">2</div>
+      <div>
+        <div class="step-subtitle">ABOUT 3 MIN</div>
+        <div class="step-title">テンプレ.mdに4要素を記入</div>
+      </div>
+    </div>
+    <p>同じフォルダにある <code>yurutto-theme-template.md</code> を開いて、「次回テーマの記入欄」に4要素を書きます：</p>
+    <pre><code>【開催日】：2026.8.30（土）
+【タイトル】：（テーマの正式名）
+【サブ】：（テーマの位置付け1行）
+【紹介文】：（100〜200文字、何にチャレンジ／持ち帰り物）</code></pre>
+    <div class="tip">
+      <span class="label">💡 書き方のコツ</span>
+      テンプレ.md内に「書くときのコツ」セクションがあるので、迷ったらそこを参照してください。
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">3</div>
+      <div>
+        <div class="step-subtitle">ABOUT 1 MIN</div>
+        <div class="step-title">Claudeに差し替えを依頼</div>
+      </div>
+    </div>
+    <p>テンプレ.mdの「Claudeへの差し替え指示プロンプト」をコピーして、Claude Code に貼り付け。Enter で実行。</p>
+    <p>Claudeが自動で：</p>
+    <ul style="padding-left: 32px; margin: 12px 0;">
+      <li>テーマセクションの4要素を新しいものに置き換え</li>
+      <li>meta description / og:description を更新</li>
+      <li>差し替え完了報告</li>
+    </ul>
+    <div class="tip">
+      <span class="label">💡 確認方法</span>
+      ブラウザで shift-ai-yurutto-okayama.html を開いて、テーマセクションが新しい内容になっているか確認。
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-label">
+      <div class="step-num-big">4</div>
+      <div>
+        <div class="step-subtitle">ABOUT 1 MIN</div>
+        <div class="step-title">告知開始</div>
+      </div>
+    </div>
+    <p>LPのURLをDiscord 等で共有して告知開始。OGP（SNSシェア時のサムネ）も新テーマの紹介文に切り替わっています。</p>
+    <div class="warn">
+      <span class="label">⚠️ 注意</span>
+      公開URLを変える場合は別途 git push が必要です。<strong>公開系操作は Kei 明示承認後に実行</strong>のルール（CLAUDE.md準拠）。
+    </div>
+  </div>
+
+  <!-- 差し替え手順詳細 -->
+  <h2>3. 差し替えるパーツの場所</h2>
+
+  <details>
+    <summary>HTMLでの差し替え位置を見る ▾</summary>
+    <div class="body">
+      <p>テーマセクションは <code>id="theme"</code> で識別。差し替え対象はコメントで明示しています：</p>
+      <pre><code>&lt;section class="today-theme" id="theme"&gt;
+  ...
+  &lt;div class="theme-card fade-up"&gt;
+    &lt;!-- ▼▼▼ 差し替え区間 START（テーマ変更時はここから） ▼▼▼ --&gt;
+    &lt;div class="theme-vol"&gt;開催日：2026.6.27（土）&lt;/div&gt;
+    &lt;h2 class="theme-title"&gt;実践Claude Code！...&lt;/h2&gt;
+    &lt;p class="theme-sub"&gt;AIと一緒に育てる、あなたの看板の作り方&lt;/p&gt;
+    &lt;div class="theme-desc-box"&gt;
+      &lt;p&gt;Claudeデスクトップアプリで気楽に...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;!-- ▲▲▲ 差し替え区間 END（テーマ変更時はここまで） ▲▲▲ --&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+      <p>この「▼▼▼ START」から「▲▲▲ END」の間だけが差し替え対象です。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>meta タグの差し替え位置を見る ▾</summary>
+    <div class="body">
+      <p>HTML冒頭の <code>&lt;head&gt;</code> 内：</p>
+      <pre><code>&lt;meta name="description" content="（紹介文がここに入る）"&gt;
+&lt;meta property="og:description" content="（同じ内容）"&gt;</code></pre>
+      <p>テーマ差し替え時、Claudeがこれも一緒に更新してくれます。</p>
+    </div>
+  </details>
+
+  <!-- カスタマイズ余地 -->
+  <h2>4. その他のカスタマイズ（オプション）</h2>
+
+  <p>必要に応じて以下も変更できますが、頻繁に変える必要はありません。</p>
+
+  <details>
+    <summary>会場情報・開催日時を入れたい時 ▾</summary>
+    <div class="body">
+      <p>ヒーローの <code>.hero-meta</code> セクション内、または「今回のテーマ」カード下に新しいセクションを追加することで対応可能。Claudeに「会場情報セクションを追加して」と依頼してください。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>主催者の名前・写真を入れたい時 ▾</summary>
+    <div class="body">
+      <p>「あなたを迎える2人」セクションの <code>.team-card</code> 内、avatar の文字（「企」「支」）や h4 を書き換えます。写真を入れる場合は、画像ファイルを同フォルダに置いて img タグで参照。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>申込URLを追加したい時 ▾</summary>
+    <div class="body">
+      <p>現在は「内容を見る」と「今回のテーマ」の2ボタンのみ。申込URL（例：Peatix / connpass）を追加する場合は、ヒーローCTAに3つ目のボタンを追加するか、別途バナーを差し込みます。Claudeに依頼可能。</p>
+      <p class="warn" style="background: var(--orange-soft); border: none; padding: 12px;">
+        ※ 公開URL追加は <strong>Kei 明示承認後</strong> に進めます。
+      </p>
+    </div>
+  </details>
+
+  <!-- トラブルシュート -->
+  <details class="troubleshoot">
+    <summary>⚠️ うまく動かない時はここを開く ▾</summary>
+    <div class="body">
+      <table>
+        <tr><th>症状</th><th>対処</th></tr>
+        <tr><td>差し替え後にデザインが崩れた</td><td>HTML タグ（&lt;h2&gt;等）を消してしまった可能性。git で1つ前に戻して再実行。</td></tr>
+        <tr><td>「VOL.XX」だけ反映されない</td><td>テンプレ.mdの【Vol／月】欄に書いていない可能性。記入してから再実行。</td></tr>
+        <tr><td>meta description が更新されていない</td><td>Claudeへの指示プロンプトに「meta description も更新して」が含まれているか確認。</td></tr>
+        <tr><td>ブラウザで古い内容が表示される</td><td>ブラウザのスーパーリロード（Ctrl+Shift+R）。</td></tr>
+        <tr><td>OGP（SNSシェア時のサムネ）が古い</td><td>FB／X のシェアデバッガーでキャッシュクリア依頼。</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <!-- 用語集 -->
+  <h2>5. 用語集（気になる人だけ）</h2>
+
+  <div class="tab-container">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showTab(event, 'basic')">基本用語</button>
+      <button class="tab-btn" onclick="showTab(event, 'meta')">meta関連</button>
+    </div>
+
+    <div class="tab-panel active" id="basic">
+      <dl class="glossary">
+        <dt>LP（ランディングページ）</dt>
+        <dd>告知や申込誘導のための1ページ完結型ウェブページ。</dd>
+        <dt>テーマセクション</dt>
+        <dd>このLP内で毎回差し替える「今回のテーマ」部分。<code>id="theme"</code> で識別。</dd>
+        <dt>差し替え区間</dt>
+        <dd>HTMLコメント「▼▼▼ START」と「▲▲▲ END」で囲まれた、テーマ差し替え対象範囲。</dd>
+        <dt>開催日表記</dt>
+        <dd>「開催日：YYYY.M.D（曜日）」形式で記載。例：「開催日：2026.6.27（土）」。テンプレ.md記入時もこの形で。</dd>
+      </dl>
+    </div>
+
+    <div class="tab-panel" id="meta">
+      <dl class="glossary">
+        <dt>meta description</dt>
+        <dd>検索エンジンや SNS でURLを共有した時に表示される説明文。SEO的にも重要。</dd>
+        <dt>OGP</dt>
+        <dd>「Open Graph Protocol」。SNS シェア時のサムネとタイトルを設定する仕組み。<code>og:title</code> や <code>og:description</code> で指定。</dd>
+        <dt>OGP デバッガー</dt>
+        <dd>Facebook や X が提供する、OGP キャッシュの確認・更新用ツール。シェア時に古い情報が出る時に使う。</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- 関連ファイル -->
+  <h2>関連ファイル</h2>
+  <ul style="padding-left: 32px; margin: 12px 0;">
+    <li><code>shift-ai-yurutto-okayama.html</code> ─ LP本体（差し替え対象）</li>
+    <li><code>yurutto-theme-template.md</code> ─ テーマ差し替え用テンプレ（記入＋Claude指示プロンプト）</li>
+    <li><code>yurutto-LP-manual.html</code> ─ 本マニュアル</li>
+  </ul>
+
+  <!-- フッタ -->
+  <footer>
+    © 2026 Kai for Kei ／ v1.0
+  </footer>
+
+</div>
+
+<script>
+  function showTab(event, id) {
+    const container = event.target.closest('.tab-container');
+    container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
