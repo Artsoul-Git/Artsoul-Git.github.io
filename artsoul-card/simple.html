@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>有限会社アートソウル ─ AI導入支援＆定着サポート</title>
+<meta name="description" content="中小企業のAI導入を、現場目線で。Claude／ChatGPTの業務活用、社内定着、人材育成までワンストップ。">
+<meta property="og:title" content="有限会社アートソウル ─ AI導入支援＆定着サポート">
+<meta property="og:description" content="中小企業のAI導入を、現場目線で。">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    /* ベース：MONO 02 継承 */
+    --bg: #fafafa;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --text-soft: #555;
+    --text-mute: #999;
+    --line: #e8e8e8;
+    --line-dark: #1a1a1a;
+    --accent: #c8392c;
+    /* アクセント：温かみ追加 */
+    --warm-bg: #f7f1e6;
+    --icon-bg: #1a1a1a;
+    --icon-text: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+    color: var(--text); background: var(--bg);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 460px; margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+
+  /* ========== ヒーロー ========== */
+  .hero {
+    text-align: center; margin-bottom: 36px;
+  }
+  .avatar {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: var(--line-dark);
+    color: var(--icon-text);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-family: "Yu Mincho", serif;
+    font-size: 36px; font-weight: 300; letter-spacing: 0.05em;
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .hero h1 {
+    font-family: "Yu Mincho", serif;
+    font-size: 24px; font-weight: 400;
+    letter-spacing: 0.08em; margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .hero .role {
+    font-size: 12px; color: var(--accent);
+    letter-spacing: 0.3em;
+    margin-bottom: 16px;
+  }
+  .hero .catch {
+    font-size: 14px; color: var(--text-soft);
+    line-height: 1.9;
+  }
+  .hero .catch strong {
+    display: block; font-weight: 600; color: var(--text);
+    font-size: 15px; margin-bottom: 4px;
+  }
+
+  /* ========== ミッション・カード ========== */
+  .mission {
+    background: var(--warm-bg);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-bottom: 36px;
+    text-align: center;
+    position: relative;
+  }
+  .mission::before {
+    content: "MISSION";
+    position: absolute; top: -8px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--warm-bg);
+    padding: 0 10px;
+    font-size: 10px; letter-spacing: 0.4em;
+    color: var(--accent); font-weight: 600;
+  }
+  .mission p {
+    font-family: "Yu Mincho", serif;
+    font-size: 16px; line-height: 1.8;
+    color: var(--text); letter-spacing: 0.04em;
+  }
+
+  /* ========== セクション見出し ========== */
+  .section-head {
+    display: flex; align-items: center; gap: 12px;
+    margin: 32px 0 16px;
+  }
+  .section-head .line {
+    flex: 1; height: 1px; background: var(--line);
+  }
+  .section-head .label {
+    font-size: 10px; letter-spacing: 0.4em;
+    color: var(--text-mute); font-weight: 600;
+  }
+
+  /* ========== リンクボタン ========== */
+  .link-list {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .link-btn {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none; color: inherit;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .link-btn:hover,
+  .link-btn:focus {
+    transform: translateY(-2px);
+    border-color: var(--line-dark);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+  }
+  .link-btn .icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--icon-bg);
+    color: var(--icon-text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .link-btn .body { flex: 1; min-width: 0; }
+  .link-btn .name {
+    font-size: 14px; font-weight: 600;
+    line-height: 1.4; margin-bottom: 2px;
+    letter-spacing: 0.04em;
+  }
+  .link-btn .desc {
+    font-size: 11.5px; color: var(--text-soft);
+    line-height: 1.5;
+  }
+  .link-btn .arrow {
+    color: var(--text-mute);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ========== AIツール用カード（バッジ付き） ========== */
+  .link-btn.tool-btn {
+    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  }
+  .link-btn.tool-btn .icon {
+    background: var(--accent);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 9px; letter-spacing: 0.2em; font-weight: 600;
+    background: var(--accent); color: #fff;
+    padding: 2px 6px; border-radius: 3px;
+    margin-right: 6px; vertical-align: middle;
+  }
+
+  /* ========== AIパートナー紹介 ========== */
+  .ai-partner {
+    background: var(--text);
+    color: var(--icon-text);
+    border-radius: 8px;
+    padding: 22px 24px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .ai-partner .partner-label {
+    font-size: 10px; letter-spacing: 0.4em;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 8px;
+  }
+  .ai-partner .partner-name {
+    font-family: "Yu Mincho", serif;
+    font-size: 22px; letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .ai-partner .partner-desc {
+    font-size: 12px; line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ========== フッタ ========== */
+  footer {
+    margin-top: 48px; padding-top: 24px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  footer .qr-label {
+    font-size: 10px; letter-spacing: 0.3em;
+    color: var(--text-mute); margin-bottom: 12px;
+  }
+  footer .qr-box {
+    width: 96px; height: 96px;
+    background: var(--card);
+    border: 1px dashed var(--line);
+    margin: 0 auto 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-mute); font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+  footer .copy {
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--text-mute);
+  }
+  footer .copy a {
+    color: var(--text-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-mute);
+  }
+
+  /* ========== ハンズオンバナー ========== */
+  .handson-banner {
+    background: linear-gradient(135deg, var(--line-dark) 0%, #333 100%);
+    color: var(--icon-text);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin: 28px 0 0;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 14px;
+    transition: transform 0.2s;
+  }
+  .handson-banner:hover { transform: translateY(-2px); }
+  .handson-banner .hb-icon {
+    width: 36px; height: 36px;
+    border-radius: 6px;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .handson-banner .hb-body { flex: 1; }
+  .handson-banner .hb-label {
+    font-size: 9px; letter-spacing: 0.3em;
+    color: var(--accent); margin-bottom: 2px;
+  }
+  .handson-banner .hb-title {
+    font-size: 13px; font-weight: 600;
+    line-height: 1.4; color: var(--icon-text);
+  }
+  .handson-banner .hb-arrow {
+    color: var(--icon-text); font-size: 14px;
+  }
+
+  @media (max-width: 380px) {
+    .wrap { padding: 24px 14px 48px; }
+    .hero h1 { font-size: 21px; }
+    .avatar { width: 80px; height: 80px; font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ========== ヒーロー ========== -->
+  <header class="hero">
+    <div class="avatar">AS</div>
+    <h1>有 限 会 社 ア ー ト ソ ウ ル</h1>
+    <div class="role">AI 導 入 支 援 ・ 定 着 サ ポ ー ト</div>
+    <div class="catch">
+      <strong>中小企業のAI導入を、現場目線で。</strong>
+      Claude／ChatGPTの業務活用、社内定着、人材育成までワンストップ。
+    </div>
+  </header>
+
+  <!-- ========== ミッション ========== -->
+  <div class="mission">
+    <p>ツールより、まず仕事を。<br>現場で本当に使われるAI活用を、共に。</p>
+  </div>
+
+  <!-- ========== 連絡・予約 ========== -->
+  <div class="section-head">
+    <span class="label">CONTACT</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="link-list">
+
+    <a class="link-btn" href="https://calendar.app.google/hGdZ7MoTsgaH9Qth8" target="_blank" rel="noopener noreferrer">
+      <div class="icon">📅</div>
+      <div class="body">
+        <div class="name">オンライン無料相談を予約</div>
+        <div class="desc">Google Calendar から30分枠で予約できます</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="link-btn" href="https://lin.ee/Woe95gk" target="_blank" rel="noopener noreferrer">
+      <div class="icon">💬</div>
+      <div class="body">
+        <div class="name">LINE で気軽に問い合わせ</div>
+        <div class="desc">お友達追加して、メッセージください</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="link-btn" href="https://8card.net/virtual_cards/Ezyelz77_0yVD8ib8bSb-w" target="_blank" rel="noopener noreferrer">
+      <div class="icon">📇</div>
+      <div class="body">
+        <div class="name">デジタル名刺（8card）</div>
+        <div class="desc">名刺データはこちらから保存できます</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- ========== AIパートナー Kai 紹介 ========== -->
+  <div class="ai-partner">
+    <div class="partner-label">AI PARTNER</div>
+    <div class="partner-name">K a i ／ 開</div>
+    <div class="partner-desc">
+      上村桂右のビジネスパートナーAI。<br>
+      ヒアリングから設計、運用まで伴走します。
+    </div>
+  </div>
+
+  <!-- ========== SNS ========== -->
+  <div class="section-head">
+    <span class="label">SNS</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="link-list">
+
+    <a class="link-btn" href="https://x.com/Lets_go1000" target="_blank" rel="noopener noreferrer">
+      <div class="icon">𝕏</div>
+      <div class="body">
+        <div class="name">X （旧 Twitter）</div>
+        <div class="desc">@Lets_go1000 ／ AI活用の現場メモを毎日</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="link-btn" href="https://www.facebook.com/profile.php?id=61553794167505" target="_blank" rel="noopener noreferrer">
+      <div class="icon">f</div>
+      <div class="body">
+        <div class="name">Facebook</div>
+        <div class="desc">セミナー告知・実績紹介はこちら</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- ========== おすすめAIツール ========== -->
+  <div class="section-head">
+    <span class="label">RECOMMEND TOOLS</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="link-list">
+
+    <a class="link-btn tool-btn" href="https://www.genspark.ai/invite_member?invite_code=NGRkMTkxYWZMNDM5YkwxZDc0TDhmOGJMNDJhMWZmOTg0ZGEy" target="_blank" rel="noopener noreferrer">
+      <div class="icon">✨</div>
+      <div class="body">
+        <div class="name"><span class="badge">PR</span>Genspark を試す</div>
+        <div class="desc">AIスライド・リサーチが秒で出る次世代エージェント</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="link-btn tool-btn" href="https://perplexity.ai/pro?referral_code=8RVFC8AL" target="_blank" rel="noopener noreferrer">
+      <div class="icon">✨</div>
+      <div class="body">
+        <div class="name"><span class="badge">PR</span>Perplexity Pro を試す</div>
+        <div class="desc">出典付きのAI検索。リサーチ業務がこれ一本に</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="link-btn tool-btn" href="https://aquavoice.com/share?code=JA-UY11" target="_blank" rel="noopener noreferrer">
+      <div class="icon">✨</div>
+      <div class="body">
+        <div class="name"><span class="badge">PR</span>Aqua Voice を試す</div>
+        <div class="desc">話すだけで整文。議事録・メール作成がラクに</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- ========== ハンズオン誘導バナー ========== -->
+  <a class="handson-banner" href="#" target="_blank" rel="noopener noreferrer">
+    <div class="hb-icon">🎓</div>
+    <div class="hb-body">
+      <div class="hb-label">HANDS-ON</div>
+      <div class="hb-title">実践Claude Code！<br>あなたもWEB名刺を45分で</div>
+    </div>
+    <div class="hb-arrow">→</div>
+  </a>
+
+  <!-- ========== フッタ ========== -->
+  <footer>
+    <div class="qr-label">SCAN TO SHARE</div>
+    <div class="qr-box">QR<br>HERE</div>
+    <div class="copy">
+      © 2026 <a href="https://artsoul.example.jp" target="_blank" rel="noopener">有限会社アートソウル</a><br>
+      Built with Claude Code ／ Hosted on GitHub Pages
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

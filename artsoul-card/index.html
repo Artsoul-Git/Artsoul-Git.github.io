@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>有限会社アートソウル ─ 中小企業のAI導入を、現場目線で。</title>
+<meta name="description" content="ツール導入より業務改善が先。Claude／ChatGPTを使った中小企業のAI導入支援、運用定着、人材育成までワンストップで伴走します。">
+<meta property="og:title" content="有限会社アートソウル ─ 中小企業のAI導入を、現場目線で。">
+<meta property="og:description" content="ツールより、まず仕事を。クライアントが自走できる状態まで伴走するAI導入支援。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@300;500;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8a8a;
+    --paper: #fafafa;
+    --paper-soft: #f4f1ea;
+    --warm: #f7f1e6;
+    --line: #e4e2dc;
+    --line-strong: #2a2a2a;
+    --accent: #c8392c;
+    --accent-soft: rgba(200, 57, 44, 0.08);
+    --gold: #b8860b;
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 12px 32px rgba(0,0,0,0.08);
+    --shadow-lg: 0 24px 64px rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+    color: var(--ink); background: var(--paper);
+    line-height: 1.85; font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .serif { font-family: "Noto Serif JP", "Yu Mincho", serif; }
+  .en { font-family: "Cormorant Garamond", serif; font-weight: 400; letter-spacing: 0.05em; }
+
+  /* ========== ナビゲーション ========== */
+  nav.global {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100; padding: 20px 32px;
+    background: rgba(250, 250, 250, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: padding 0.3s, background 0.3s, border-color 0.3s;
+  }
+  nav.global.shrunk {
+    padding: 12px 32px;
+    background: rgba(250, 250, 250, 0.95);
+    border-bottom-color: var(--line);
+  }
+  nav.global .nav-inner {
+    max-width: 1240px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.global .brand {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px; font-weight: 500; letter-spacing: 0.2em;
+    color: var(--black);
+    text-decoration: none;
+  }
+  nav.global .brand .sub {
+    display: block; font-size: 9px; letter-spacing: 0.4em;
+    color: var(--ink-mute); font-family: "Noto Sans JP", sans-serif; margin-top: 2px;
+  }
+  nav.global ul {
+    display: flex; list-style: none; gap: 32px; align-items: center;
+  }
+  nav.global ul a {
+    color: var(--ink); text-decoration: none;
+    font-size: 12px; letter-spacing: 0.25em; font-weight: 500;
+    padding: 8px 0; position: relative;
+    transition: color 0.2s;
+  }
+  nav.global ul a::after {
+    content: ""; position: absolute; left: 50%; bottom: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width 0.3s, left 0.3s;
+  }
+  nav.global ul a:hover { color: var(--accent); }
+  nav.global ul a:hover::after { left: 0; width: 100%; }
+  nav.global ul a.nav-cta {
+    background: var(--black); color: var(--paper);
+    padding: 10px 22px; border-radius: 30px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  nav.global ul a.nav-cta::after { display: none; }
+  nav.global ul a.nav-cta:hover {
+    background: var(--accent); transform: translateY(-1px); color: #fff;
+  }
+  .nav-burger { display: none; background: none; border: none; cursor: pointer; }
+
+  /* ========== ヒーロー ========== */
+  .hero {
+    position: relative; min-height: 100vh;
+    background: var(--black); color: var(--paper);
+    display: flex; align-items: center;
+    overflow: hidden;
+    padding: 120px 32px 80px;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    background-position: center center;
+    animation: gridShift 30s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes gridShift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(80px, 80px); }
+  }
+  .hero-glow {
+    position: absolute; top: 30%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 60%);
+    pointer-events: none;
+    animation: glow 8s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    0% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1080px; margin: 0 auto; width: 100%;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 0.4em;
+    color: var(--accent); margin-bottom: 40px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 32px; height: 1px; background: var(--accent);
+  }
+  .hero h1 {
+    font-family: "Noto Serif JP", serif;
+    font-size: clamp(40px, 8vw, 88px);
+    font-weight: 500; letter-spacing: 0.05em;
+    line-height: 1.25; margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 1s 0.4s forwards;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero h1 .small {
+    display: block; font-size: 0.4em; color: rgba(255,255,255,0.6);
+    letter-spacing: 0.2em; margin-top: 8px;
+  }
+  .hero-lead {
+    font-size: 16px; line-height: 2.2;
+    color: rgba(255,255,255,0.85);
+    max-width: 640px; margin-bottom: 48px;
+    opacity: 0; animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1s 1s forwards;
+  }
+  .btn-primary, .btn-ghost {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 18px 36px;
+    font-size: 13px; letter-spacing: 0.25em; font-weight: 600;
+    text-decoration: none; border-radius: 30px;
+    transition: transform 0.2s, background 0.3s, border-color 0.3s;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 8px 24px rgba(200, 57, 44, 0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: #b3322a; }
+  .btn-ghost {
+    background: transparent; color: var(--paper);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-ghost:hover { border-color: var(--paper); }
+  .btn-primary .arrow, .btn-ghost .arrow {
+    transition: transform 0.2s;
+  }
+  .btn-primary:hover .arrow, .btn-ghost:hover .arrow { transform: translateX(4px); }
+
+  .scroll-cue {
+    position: absolute; bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 10px; letter-spacing: 0.4em;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 1s 1.3s forwards;
+  }
+  .scroll-cue .line {
+    width: 1px; height: 48px; background: rgba(255,255,255,0.3);
+    overflow: hidden; position: relative;
+  }
+  .scroll-cue .line::after {
+    content: ""; position: absolute; top: -48px; left: 0; right: 0;
+    height: 48px; background: var(--accent);
+    animation: scrollDown 2s ease-in-out infinite;
+  }
+  @keyframes scrollDown {
+    0% { top: -48px; }
+    50% { top: 0; }
+    100% { top: 48px; }
+  }
+
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== セクション共通 ========== */
+  section {
+    padding: 120px 32px; position: relative;
+  }
+  .section-inner {
+    max-width: 1080px; margin: 0 auto;
+  }
+  .section-head {
+    text-align: center; margin-bottom: 80px;
+  }
+  .section-eyebrow {
+    display: inline-block; font-size: 11px; letter-spacing: 0.5em;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: "Noto Serif JP", serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 500; letter-spacing: 0.08em;
+    line-height: 1.4; margin-bottom: 20px;
+  }
+  .section-lead {
+    font-size: 15px; color: var(--ink-soft);
+    max-width: 640px; margin: 0 auto; line-height: 2.1;
+  }
+
+  /* ========== ABOUT ========== */
+  .about {
+    background: var(--paper-soft);
+  }
+  .principles {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    margin-top: 60px;
+  }
+  .principle {
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 40px 32px; border-radius: 4px;
+    text-align: center;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+  .principle:hover {
+    transform: translateY(-8px); box-shadow: var(--shadow-md);
+  }
+  .principle .num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 56px; color: var(--accent); line-height: 1;
+    margin-bottom: 20px;
+  }
+  .principle h3 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 18px; font-weight: 600; letter-spacing: 0.05em;
+    margin-bottom: 16px; line-height: 1.6;
+  }
+  .principle p {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.9;
+  }
+
+  /* ========== SERVICE ========== */
+  .service-list {
+    display: grid; grid-template-columns: 1fr; gap: 24px;
+  }
+  .service-item {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 48px 40px;
+    display: grid; grid-template-columns: 100px 1fr auto;
+    gap: 40px; align-items: center;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  .service-item:hover {
+    border-color: var(--accent);
+    transform: translateX(8px);
+    box-shadow: var(--shadow-sm);
+  }
+  .service-item .si-num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 64px; color: var(--ink-mute);
+    line-height: 1; letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+  .service-item:hover .si-num { color: var(--accent); }
+  .service-item .si-body h3 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 22px; font-weight: 600; letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .service-item .si-body .si-en {
+    font-size: 10px; letter-spacing: 0.4em;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .service-item .si-body p {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.9;
+    max-width: 540px;
+  }
+  .service-item .si-arrow {
+    font-size: 24px; color: var(--ink-mute);
+    transition: color 0.3s, transform 0.3s;
+  }
+  .service-item:hover .si-arrow { color: var(--accent); transform: translateX(6px); }
+
+  /* ========== PROCESS ========== */
+  .process {
+    background: var(--ink); color: var(--paper);
+  }
+  .process .section-title { color: var(--paper); }
+  .process .section-lead { color: rgba(255,255,255,0.7); }
+  .process-flow {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin-top: 60px; position: relative;
+  }
+  .process-step {
+    text-align: center; padding: 32px 20px;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .process-step:hover { transform: translateY(-4px); }
+  .process-step:not(:last-child)::after {
+    content: "→"; position: absolute;
+    right: -16px; top: 80px;
+    color: var(--accent); font-size: 22px;
+  }
+  .process-step .step-circle {
+    width: 80px; height: 80px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px; color: var(--accent);
+    background: var(--ink);
+    transition: background 0.3s, color 0.3s;
+  }
+  .process-step:hover .step-circle {
+    background: var(--accent); color: #fff;
+  }
+  .process-step h4 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 18px; font-weight: 500; letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .process-step p {
+    font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.8;
+  }
+
+  /* ========== NUMBERS ========== */
+  .numbers {
+    background: var(--paper-soft);
+  }
+  .number-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    margin-top: 40px;
+  }
+  .number-item {
+    text-align: center; padding: 32px 20px;
+    border-right: 1px solid var(--line);
+  }
+  .number-item:last-child { border-right: none; }
+  .number-item .num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(48px, 7vw, 72px);
+    font-weight: 500; color: var(--accent);
+    line-height: 1; margin-bottom: 12px; letter-spacing: 0.02em;
+  }
+  .number-item .num .unit {
+    font-size: 0.5em; color: var(--ink); margin-left: 4px;
+  }
+  .number-item .num .plus {
+    font-size: 0.5em; color: var(--accent); margin-left: 2px;
+  }
+  .number-item .label {
+    font-size: 11px; letter-spacing: 0.3em;
+    color: var(--ink-soft); font-weight: 600;
+  }
+
+  /* ========== VOICE ========== */
+  .voice-carousel {
+    position: relative; margin-top: 40px;
+  }
+  .voice-track {
+    display: flex; gap: 24px;
+    transition: transform 0.5s ease;
+  }
+  .voice-card {
+    flex: 0 0 calc(33.333% - 16px);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 36px 32px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .voice-card:hover {
+    transform: translateY(-4px); box-shadow: var(--shadow-md);
+  }
+  .voice-card .quote-mark {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 72px; color: var(--accent-soft);
+    line-height: 1; position: absolute;
+    top: 16px; left: 20px;
+  }
+  .voice-card .voice-body {
+    position: relative; z-index: 1;
+  }
+  .voice-card .voice-text {
+    font-family: "Noto Serif JP", serif;
+    font-size: 15px; line-height: 2;
+    color: var(--ink); margin-bottom: 24px;
+    padding-top: 28px;
+  }
+  .voice-card .voice-author {
+    border-top: 1px solid var(--line); padding-top: 16px;
+  }
+  .voice-card .voice-author .name {
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .voice-card .voice-author .role {
+    font-size: 11px; color: var(--ink-mute);
+    letter-spacing: 0.1em;
+  }
+  .voice-controls {
+    display: flex; justify-content: center; gap: 12px; margin-top: 32px;
+  }
+  .voice-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--line);
+    border: none; cursor: pointer; padding: 0;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .voice-dot.active { background: var(--accent); transform: scale(1.4); }
+
+  /* ========== CONTACT ========== */
+  .contact {
+    background: var(--ink); color: var(--paper);
+  }
+  .contact .section-title { color: var(--paper); }
+  .contact .section-lead { color: rgba(255,255,255,0.7); }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    max-width: 760px; margin: 60px auto 0;
+  }
+  .contact-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 24px 28px;
+    display: flex; align-items: center; gap: 18px;
+    text-decoration: none; color: var(--paper);
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  }
+  .contact-btn:hover {
+    background: rgba(200, 57, 44, 0.1);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .contact-btn .cb-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .contact-btn:hover .cb-icon { background: var(--accent); }
+  .contact-btn .cb-body { flex: 1; min-width: 0; }
+  .contact-btn .cb-name {
+    font-size: 14px; font-weight: 600;
+    letter-spacing: 0.05em; margin-bottom: 4px;
+  }
+  .contact-btn .cb-desc {
+    font-size: 11px; color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+  }
+  .contact-btn .cb-arrow {
+    color: rgba(255,255,255,0.4);
+    transition: color 0.3s, transform 0.3s;
+  }
+  .contact-btn:hover .cb-arrow { color: var(--accent); transform: translateX(4px); }
+  .contact-btn.cb-featured {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--accent) 0%, #a32a1f 100%);
+    border-color: transparent;
+  }
+  .contact-btn.cb-featured:hover {
+    background: linear-gradient(135deg, #d54035 0%, #b3322a 100%);
+  }
+  .contact-btn.cb-featured .cb-icon {
+    background: rgba(255,255,255,0.2);
+  }
+  .contact-btn.cb-featured .cb-name { font-size: 16px; }
+  .contact-btn.cb-featured .cb-desc { color: rgba(255,255,255,0.85); }
+
+  /* ========== RECOMMEND（折りたたみ）========== */
+  .recommend {
+    background: var(--paper-soft);
+    text-align: center;
+  }
+  .recommend-toggle {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 16px 32px;
+    cursor: pointer;
+    font-size: 12px; letter-spacing: 0.25em; font-weight: 600;
+    color: var(--ink);
+    border-radius: 30px;
+    transition: background 0.2s, border-color 0.2s;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .recommend-toggle:hover {
+    background: var(--warm); border-color: var(--accent);
+  }
+  .recommend-toggle .chev { transition: transform 0.3s; }
+  .recommend-toggle.open .chev { transform: rotate(180deg); }
+  .recommend-list {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-top: 32px;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.6s ease, opacity 0.4s;
+    opacity: 0;
+  }
+  .recommend-list.show { max-height: 600px; opacity: 1; }
+  .tool-card {
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 28px 24px; border-radius: 4px;
+    text-decoration: none; color: var(--ink);
+    text-align: left;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .tool-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+  .tool-card .badge {
+    display: inline-block;
+    font-size: 9px; letter-spacing: 0.2em;
+    background: var(--ink); color: #fff;
+    padding: 3px 8px; border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .tool-card h4 {
+    font-family: "Noto Serif JP", serif;
+    font-size: 17px; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .tool-card p {
+    font-size: 12px; color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  /* ========== フッタ ========== */
+  footer.global {
+    background: var(--black); color: var(--paper);
+    padding: 80px 32px 40px;
+  }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand .brand-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px; letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+  .footer-brand .brand-jp {
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px; letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.6); margin-bottom: 20px;
+  }
+  .footer-brand p {
+    font-size: 12px; color: rgba(255,255,255,0.5); line-height: 2;
+  }
+  footer.global h5 {
+    font-size: 11px; letter-spacing: 0.3em;
+    color: var(--accent); margin-bottom: 20px;
+    font-weight: 600;
+  }
+  footer.global ul {
+    list-style: none;
+  }
+  footer.global ul li {
+    margin-bottom: 10px;
+  }
+  footer.global ul a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; font-size: 12px;
+    transition: color 0.2s;
+  }
+  footer.global ul a:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    text-align: center; font-size: 10px;
+    letter-spacing: 0.3em; color: rgba(255,255,255,0.4);
+  }
+
+  /* ========== フェードイン基底 ========== */
+  .fade-up {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-up.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ========== レスポンシブ ========== */
+  @media (max-width: 980px) {
+    nav.global ul { gap: 20px; }
+    nav.global ul a { font-size: 11px; letter-spacing: 0.18em; }
+    .principles { grid-template-columns: 1fr; gap: 20px; }
+    .process-flow { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .process-step:nth-child(odd):not(:last-child)::after { display: none; }
+    .process-step:nth-child(2)::after, .process-step:nth-child(4)::after { display: none; }
+    .number-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .number-item { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+    .number-item:nth-last-child(-n+2) { border-bottom: none; }
+    .voice-card { flex: 0 0 calc(100% - 16px); }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-btn.cb-featured { grid-column: span 1; }
+    .recommend-list { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .service-item { grid-template-columns: 60px 1fr; gap: 20px; padding: 32px 24px; }
+    .service-item .si-arrow { grid-column: 1 / -1; justify-self: end; }
+    .service-item .si-num { font-size: 44px; }
+  }
+  @media (max-width: 680px) {
+    nav.global { padding: 16px 20px; }
+    nav.global.shrunk { padding: 10px 20px; }
+    nav.global ul { display: none; }
+    .nav-burger { display: block; }
+    nav.global .brand { font-size: 18px; }
+    section { padding: 80px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn-primary, .btn-ghost { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== ナビゲーション ========== -->
+<nav class="global" id="globalNav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      ARTSOUL
+      <span class="sub">有 限 会 社 ア ー ト ソ ウ ル</span>
+    </a>
+    <ul>
+      <li><a href="#about">PHILOSOPHY</a></li>
+      <li><a href="#service">SERVICE</a></li>
+      <li><a href="#process">PROCESS</a></li>
+      <li><a href="#contact" class="nav-cta">CONTACT</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="メニュー">≡</button>
+  </div>
+</nav>
+
+<!-- ========== ヒーロー ========== -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI ADOPTION PARTNER FOR SMALL & MID-SIZED COMPANIES</div>
+    <h1 class="serif">
+      ツ ー ル よ り、<br>
+      <span class="accent">ま ず 仕 事 を。</span>
+      <span class="small">─ Business First, Tools Next ─</span>
+    </h1>
+    <p class="hero-lead">
+      中小企業のAI導入を、現場目線で。<br>
+      Claude・ChatGPTを使った業務改善から、社内定着、人材育成まで。<br>
+      「クライアントが自走できる状態」まで、伴走する会社です。
+    </p>
+    <div class="hero-actions">
+      <a href="https://calendar.app.google/hGdZ7MoTsgaH9Qth8" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        無 料 相 談 を 予 約
+        <span class="arrow">→</span>
+      </a>
+      <a href="#service" class="btn-ghost">
+        サ ー ビ ス を 見 る
+        <span class="arrow">↓</span>
+      </a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    SCROLL
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ========== ABOUT / PHILOSOPHY ========== -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="section-head fade-up">
+      <div class="section-eyebrow">PHILOSOPHY</div>
+      <h2 class="section-title">私 た ち が 大 事 に し て い る こ と</h2>
+      <p class="section-lead">
+        「AIツールを入れること」が目的ではありません。<br>
+        現場の仕事が、本当に変わること。<br>
+        その一点を、3つの原則で守っています。
+      </p>
+    </div>
+
+    <div class="principles">
+      <div class="principle fade-up">
+        <div class="num">01</div>
+        <h3>ツール導入より<br>業務改善が先</h3>
+        <p>何のツールを入れるか、より先に。「なぜそれが必要か」を一緒に整理します。導入だけして使われない事故を起こしません。</p>
+      </div>
+      <div class="principle fade-up">
+        <div class="num">02</div>
+        <h3>動くものを最速で、<br>運用できる状態で</h3>
+        <p>完璧な設計より、まず動かす。動いた結果を見てから磨きます。1ヶ月で形が見え、3ヶ月で成果が出る速度を守ります。</p>
+      </div>
+      <div class="principle fade-up">
+        <div class="num">03</div>
+        <h3>クライアントが<br>自走できる引き渡し</h3>
+        <p>納品して終わりではなく、社内で改修・運用できる状態にします。ベンダーに縛られない構造で構築するのが原則です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICE ========== -->
+<section id="service">
+  <div class="section-inner">
+    <div class="section-head fade-up">
+      <div class="section-eyebrow">SERVICE</div>
+      <h2 class="section-title">提 供 サ ー ビ ス</h2>
+      <p class="section-lead">
+        「導入支援」「定着サポート」「人材育成」<br>
+        段階に応じてワンストップで伴走します。
+      </p>
+    </div>
+
+    <div class="service-list">
+      <a href="#contact" class="service-item fade-up">
+        <div class="si-num">01</div>
+        <div class="si-body">
+          <div class="si-en">AI ADOPTION</div>
+          <h3>AI 導 入 支 援</h3>
+          <p>業務ヒアリングから始まり、AIが介在すべき箇所の特定、PoC設計、本番運用までを伴走。Claude／ChatGPT／Claude Codeを業務フローに溶かし込みます。</p>
+        </div>
+        <div class="si-arrow">→</div>
+      </a>
+
+      <a href="#contact" class="service-item fade-up">
+        <div class="si-num">02</div>
+        <div class="si-body">
+          <div class="si-en">ADOPTION & RETENTION</div>
+          <h3>運 用 定 着 サ ポ ー ト</h3>
+          <p>「導入したけど使われていない」を起こさない。エミ式デュアル定着メソッドで能動・受動の両面から社内浸透を設計。キーマン根回しと習慣化までセットで支援。</p>
+        </div>
+        <div class="si-arrow">→</div>
+      </a>
+
+      <a href="#contact" class="service-item fade-up">
+        <div class="si-num">03</div>
+        <div class="si-body">
+          <div class="si-en">EDUCATION</div>
+          <h3>人 材 育 成 ・ 研 修</h3>
+          <p>経営者向けAI戦略講座、現場向けClaude Codeハンズオン、社内アンバサダー育成プログラム。プログラミング未経験者も「自走できる」状態まで引き上げます。</p>
+        </div>
+        <div class="si-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="process" id="process">
+  <div class="section-inner">
+    <div class="section-head fade-up">
+      <div class="section-eyebrow">PROCESS</div>
+      <h2 class="section-title">伴 走 の 4 ス テ ッ プ</h2>
+      <p class="section-lead">
+        ヒアリングから定着まで、約3ヶ月。<br>
+        進めながら磨いていく前提でフローを組みます。
+      </p>
+    </div>
+
+    <div class="process-flow">
+      <div class="process-step fade-up">
+        <div class="step-circle">Ⅰ</div>
+        <h4>ヒ ア リ ン グ</h4>
+        <p>現場の困りごとと「やめたい仕事」を徹底的に洗い出す。1〜2週間。</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="step-circle">Ⅱ</div>
+        <h4>設 計</h4>
+        <p>業務フローを再設計し、AI介在箇所を特定。ROIを試算。1週間。</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="step-circle">Ⅲ</div>
+        <h4>実 装</h4>
+        <p>最速PoC→改善→本番化。Claude Codeで2週間サイクル。</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="step-circle">Ⅳ</div>
+        <h4>定 着</h4>
+        <p>社内研修・運用ルール設計・自走化支援。3〜6ヶ月。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-head fade-up">
+      <div class="section-eyebrow">CONTACT</div>
+      <h2 class="section-title">ま ず は、お 話 し ま し ょ う</h2>
+      <p class="section-lead">
+        ご質問・ご相談はお気軽に。<br>
+        初回30分のオンライン相談は無料です。
+      </p>
+    </div>
+
+    <div class="contact-grid fade-up">
+
+      <a href="https://calendar.app.google/hGdZ7MoTsgaH9Qth8" target="_blank" rel="noopener noreferrer" class="contact-btn cb-featured">
+        <div class="cb-icon">📅</div>
+        <div class="cb-body">
+          <div class="cb-name">オ ン ラ イ ン 無 料 相 談 を 予 約</div>
+          <div class="cb-desc">Google Calendar から30分枠で／初回相談料は頂きません</div>
+        </div>
+        <div class="cb-arrow">→</div>
+      </a>
+
+      <a href="https://lin.ee/Woe95gk" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        <div class="cb-icon">💬</div>
+        <div class="cb-body">
+          <div class="cb-name">LINE で問い合わせ</div>
+          <div class="cb-desc">友達追加してメッセージください</div>
+        </div>
+        <div class="cb-arrow">→</div>
+      </a>
+
+      <a href="https://8card.net/virtual_cards/Ezyelz77_0yVD8ib8bSb-w" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        <div class="cb-icon">📇</div>
+        <div class="cb-body">
+          <div class="cb-name">デジタル名刺</div>
+          <div class="cb-desc">8card で名刺データを保存</div>
+        </div>
+        <div class="cb-arrow">→</div>
+      </a>
+
+      <a href="https://x.com/Lets_go1000" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        <div class="cb-icon">𝕏</div>
+        <div class="cb-body">
+          <div class="cb-name">X （ 旧 Twitter ）</div>
+          <div class="cb-desc">@Lets_go1000 ／ AI活用の現場メモ</div>
+        </div>
+        <div class="cb-arrow">→</div>
+      </a>
+
+      <a href="https://www.facebook.com/profile.php?id=61553794167505" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        <div class="cb-icon">f</div>
+        <div class="cb-body">
+          <div class="cb-name">Facebook</div>
+          <div class="cb-desc">セミナー告知・実績紹介</div>
+        </div>
+        <div class="cb-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== RECOMMEND（折りたたみ） ========== -->
+<section class="recommend">
+  <div class="section-inner">
+    <div class="section-head fade-up">
+      <div class="section-eyebrow">RECOMMEND TOOLS</div>
+      <h2 class="section-title">私 た ち が 使 い 込 ん だ A I ツ ー ル</h2>
+      <p class="section-lead">
+        実際に業務で使い込んでいるツールだけを、紹介リンク付きで掲載しています。
+      </p>
+    </div>
+
+    <button class="recommend-toggle" id="recToggle" aria-expanded="false">
+      お す す め A I ツ ー ル を 見 る
+      <span class="chev">▾</span>
+    </button>
+
+    <div class="recommend-list" id="recList">
+      <a href="https://www.genspark.ai/invite_member?invite_code=NGRkMTkxYWZMNDM5YkwxZDc0TDhmOGJMNDJhMWZmOTg0ZGEy" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <span class="badge">PR / 紹介リンク</span>
+        <h4>Genspark</h4>
+        <p>AIスライド・リサーチが秒で出る次世代エージェント。提案資料作成が劇的に早くなります。</p>
+      </a>
+      <a href="https://perplexity.ai/pro?referral_code=8RVFC8AL" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <span class="badge">PR / 紹介リンク</span>
+        <h4>Perplexity Pro</h4>
+        <p>出典付きのAI検索。リサーチ業務の質と速度が両立します。</p>
+      </a>
+      <a href="https://aquavoice.com/share?code=JA-UY11" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <span class="badge">PR / 紹介リンク</span>
+        <h4>Aqua Voice</h4>
+        <p>話すだけで整文。議事録やメール作成がラクになります。</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== フッタ ========== -->
+<footer class="global">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-name">ARTSOUL</div>
+      <div class="brand-jp">有 限 会 社 ア ー ト ソ ウ ル</div>
+      <p>
+        中小企業のAI導入を、現場目線で。<br>
+        ツールより、まず仕事を。<br>
+        この一点を、20年以上守り続けています。
+      </p>
+    </div>
+    <div>
+      <h5>SERVICE</h5>
+      <ul>
+        <li><a href="#service">AI導入支援</a></li>
+        <li><a href="#service">運用定着サポート</a></li>
+        <li><a href="#service">人材育成・研修</a></li>
+        <li><a href="#process">伴走プロセス</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>CONTACT</h5>
+      <ul>
+        <li><a href="https://calendar.app.google/hGdZ7MoTsgaH9Qth8" target="_blank" rel="noopener noreferrer">無料相談を予約</a></li>
+        <li><a href="https://lin.ee/Woe95gk" target="_blank" rel="noopener noreferrer">LINE</a></li>
+        <li><a href="https://x.com/Lets_go1000" target="_blank" rel="noopener noreferrer">X</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61553794167505" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 ARTSOUL Co., Ltd.　／　Built with Claude Code ＆ Crafted with Care
+  </div>
+</footer>
+
+<script>
+  // ========== ナビゲーション縮小 ==========
+  const nav = document.getElementById('globalNav');
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const current = window.scrollY;
+    if (current > 80) nav.classList.add('shrunk');
+    else nav.classList.remove('shrunk');
+    lastScroll = current;
+  }, { passive: true });
+
+  // ========== フェードイン（IntersectionObserver） ==========
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+  // ========== RECOMMEND折りたたみ ==========
+  const recToggle = document.getElementById('recToggle');
+  const recList = document.getElementById('recList');
+  recToggle.addEventListener('click', () => {
+    const open = recToggle.classList.toggle('open');
+    recList.classList.toggle('show', open);
+    recToggle.setAttribute('aria-expanded', open);
+    recToggle.firstChild.textContent = open ? 'おすすめAIツールを閉じる ' : 'おすすめAIツールを見る ';
+  });
+
+  // ========== バーガーメニュー（簡易：alert案内）==========
+  document.querySelector('.nav-burger')?.addEventListener('click', () => {
+    document.querySelector('nav.global ul').scrollIntoView();
+  });
+</script>
+
+</body>
+</html>
